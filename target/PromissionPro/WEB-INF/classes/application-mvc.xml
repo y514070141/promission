@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+	">
+
+    <mvc:annotation-driven />
+    <!--静态资源处理 -->
+    <mvc:default-servlet-handler/>
+    <!--视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+<!--    设置时间-->
+<!--    <bean id="conversionService2" class="org.springframework.context.support.ConversionServiceFactoryBean">-->
+<!--        <property name="converters">-->
+<!--            <set>-->
+<!--                <bean class="cn.kgc.smbms.util.DateConvert"/>-->
+<!--            </set>-->
+<!--        </property>-->
+<!--    </bean>-->
+
+<!--    &lt;!&ndash;    文件上传配置    &ndash;&gt;-->
+<!--    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+<!--        &lt;!&ndash;        文件上传最大容量&ndash;&gt;-->
+<!--        <property name="maxUploadSize" value="102400"/>-->
+<!--        <property name="defaultEncoding" value="UTF-8"/>-->
+<!--    </bean>-->
+</beans>

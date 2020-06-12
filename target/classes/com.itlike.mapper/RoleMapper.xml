@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itlike.mapper.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.itlike.domain.Role" >
+    <id column="rid" property="rid" jdbcType="BIGINT" />
+    <result column="rnum" property="rnum" jdbcType="VARCHAR" />
+    <result column="rname" property="rname" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from per_role_for
+    where rid = #{rid}
+  </delete>
+<!--  删除角色-->
+  <delete id="deleteRoleByRid">
+    delete from role where rid=#{rid}
+  </delete>
+  <!--  保存角色   useGeneratedKeys找到这个用户的  keyProperty数据库列名-->
+  <insert id="insert" parameterType="com.itlike.domain.Role" useGeneratedKeys="true" keyProperty="rid">
+    insert into role (rid, rnum, rname)
+    values (#{rid,jdbcType=BIGINT}, #{rnum,jdbcType=VARCHAR}, #{rname,jdbcType=VARCHAR})
+  </insert>
+  <!--  保存 角色关系表-->
+  <insert id="insertPermission">
+     insert into per_role_for(rid,pid)
+    values(#{rid},#{pid})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.itlike.domain.Role" >
+    update role
+    set rnum = #{rnum,jdbcType=VARCHAR},
+      rname = #{rname,jdbcType=VARCHAR}
+    where rid = #{rid,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select rid, rnum, rname
+    from role
+    where rid = #{rid,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select rid, rnum, rname
+    from role
+  </select>
+<!--  根据rid查询权限-->
+  <select id="selectByRid" resultType="com.itlike.domain.Permission">
+    select * from permission where pid in (SELECT pid FROM `per_role_for` where rid=#{rid})
+  </select>
+</mapper>
